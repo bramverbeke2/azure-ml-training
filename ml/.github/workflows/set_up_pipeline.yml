@@ -1,0 +1,19 @@
+on:
+  push:
+    branches:
+      - 'main'
+      - 'develop'
+  workflow_dispatch:
+
+env:
+  # Setting an environment variable with the value of a configuration variable
+  env_var: $env.GITHUB_REF_NAME
+
+name: env_variable
+on: push
+jobs:
+  prod-check:
+    if: ${{ github.ref == 'main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploying to production server on branch $GITHUB_REF"
